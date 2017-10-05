@@ -8,3 +8,6 @@ Embree provides their own API to hide too basic implementations to realize Ray-T
 ## Dependency
 - Currently, this program is using **openCV** to view rendered images. If you do not want to use it, please delete/rename/replace the function named *writeImage*.
 - Of course, this program uses **Embree renderer**, so that you should link a Embree library to this program.
+## License
+MIT License
+10/05/2017 yaikeda
