@@ -5,9 +5,17 @@ Embree renderer is one of the cutting-edge renderer built by Intel. It is a thin
 Embree provides their own API to hide too basic implementations to realize Ray-Tracing. It allow users to consentrate on making their own renderer. 
 
 *) I think, the basic algorithm of Ray-Tracing is just throw rays and get pixel colors.
+## Purpose
+The tutorials and documentations in an official Embree site is complex for me. So I tried to build my own pilot program using Embree API for my understanding.
+
 ## Dependency
-- Currently, this program is using **openCV** to view rendered images. If you do not want to use it, please delete/rename/replace the function named *writeImage*.
-- Of course, this program uses **Embree renderer**, so that you should link a Embree library to this program.
+- This program is using **openCV** to view rendered images. If you do not want to use it, please delete/rename/replace the function named *writeImage*.
+- Of course, this program is using **Embree renderer**, so that you should link a Embree library to this program.
+
+
 ## License
-MIT License
-10/05/2017 yaikeda
+Embree renderer: Apache License 2.0 (currently)
+
+OpenCV: 3-clause BSD License (currently)
+
+Please refer to the original licenses for more details.
