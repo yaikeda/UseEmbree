@@ -98,13 +98,14 @@ UseEmbree::Color UseEmbree::renderPixel(const int *x, const int *y)
 {
 	// initialize ray
 	RTCRay ray;
-	ray.org[0] = 0.0f;
+	ray.org[0] = 0.0f; // camera original position
 	ray.org[1] = 0.0f;
 	ray.org[2] = 0.0f;
 
-	ray.dir[0] = *x - m_width * 0.5;
-	ray.dir[1] = *y - m_height * 0.5;
+	ray.dir[0] = (float)(*x - m_width * 0.5);
+	ray.dir[1] = (float)(*y - m_height * 0.5);
 	ray.dir[2] = 1.0f; // should rewrite
+
 	ray.tnear = 0.0f;
 	ray.tfar = std::numeric_limits<float>::infinity();
 	ray.time = 0;
