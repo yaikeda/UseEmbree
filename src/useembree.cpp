@@ -56,9 +56,9 @@ void UseEmbree::addTriangleGeometry()
 
 	// fill vertex buffer
 	Vertex* vertices = (Vertex*)rtcMapBuffer(m_scene, geomID, RTC_VERTEX_BUFFER);
-	vertices[0].x = -1.0f; vertices[0].y = -1.0f; vertices[0].z = 100.0f;
-	vertices[1].x =  0.0f; vertices[1].y = +1.0f; vertices[1].z = 100.0f;
-	vertices[2].x = +1.0f; vertices[2].y = -1.0f; vertices[2].z = 100.0f;
+	vertices[0].x = -10.0f; vertices[0].y = -10.0f; vertices[0].z = 10.0f;
+	vertices[1].x =  0.0f; vertices[1].y = 10.0f; vertices[1].z = 10.0f;
+	vertices[2].x = 10.0f; vertices[2].y = -10.0f; vertices[2].z = 10.0f;
 	rtcUnmapBuffer(m_scene, geomID, RTC_VERTEX_BUFFER);
 	
 	// fill index buffer
@@ -79,7 +79,7 @@ void UseEmbree::renderImage()
 	// for each pixel
 	for (int y = 0; y < m_height; y++) {
 		for (int x = 0; x < m_width; x++) {
-			Color color = renderPixel();
+			Color color = renderPixel(&x, &y);
 			img[y * m_width + x].r = (unsigned char)(255.0f * color.r);
 			img[y * m_width + x].g = (unsigned char)(255.0f * color.g);
 			img[y * m_width + x].b = (unsigned char)(255.0f * color.b);
@@ -94,12 +94,17 @@ void UseEmbree::renderImage()
 	std::cout << "renderImage();" << std::endl;
 }
 
-UseEmbree::Color UseEmbree::renderPixel()
+UseEmbree::Color UseEmbree::renderPixel(const int *x, const int *y)
 {
 	// initialize ray
 	RTCRay ray;
-	ray.org[0] = 0.0f; ray.org[1] = 0.0f; ray.org[2] = 0.0f;
-	ray.dir[0] = 0.0f; ray.dir[1] = 0.0f; ray.dir[2] = 1.0f; // should rewrite
+	ray.org[0] = 0.0f;
+	ray.org[1] = 0.0f;
+	ray.org[2] = 0.0f;
+
+	ray.dir[0] = *x - m_width * 0.5;
+	ray.dir[1] = *y - m_height * 0.5;
+	ray.dir[2] = 1.0f; // should rewrite
 	ray.tnear = 0.0f;
 	ray.tfar = std::numeric_limits<float>::infinity();
 	ray.time = 0;
@@ -112,7 +117,10 @@ UseEmbree::Color UseEmbree::renderPixel()
 
 	// shade this pixel
 	Color color;
-	color.r = 1.0f; color.g = 1.0f;	color.b = 1.0f;	color.a = 0.0f;
+	color.r = 1.0f;
+	color.g = 1.0f;
+	color.b = 1.0f;
+	color.a = 0.0f;
 
 	if (ray.geomID != RTC_INVALID_GEOMETRY_ID)
 	{

@@ -43,6 +43,6 @@ private:
 	// inter functions
 	void addTriangleGeometry();
 	void renderImage();
-	Color renderPixel();
+	Color renderPixel(const int *x, const int *y);
 	void writeImage(ImagePixel* img);
 };
